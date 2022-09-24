@@ -1,4 +1,7 @@
+import sys
 from typing import List
+
+import core
 
 
 def diagonals(arr):
@@ -152,20 +155,65 @@ def grading_students(grades):
     return rounded_grades
 
 
-def find_common_factor(x1, v1, x2, v2):
+def number_line_jump1(x1, v1, x2, v2):
     # check the x and v and compare the rate
     # 0 3 4 2 => YES
-    # 0 <= x1 < x2
-    # v2 must be smaller
-    if v2 > v1:
-        return "NO"
-    r1 = abs(x1 - v1)
-    r2 = abs(x2 - v2)
-    i = 1
-    # find common factor of r1, r2
-    while i <= v1:
-        if r1 % i == 0 and r2 % i == 0:
-            # factor found
+    if x1 > x2:
+        # v2 has to be larger
+        if v1 > v2:
+            return "NO"
+    if x2 > x1:
+        # v1 has to be larger
+        if v2 > v1:
+            return "NO"
+    r1 = abs(x1 + v1)
+    r2 = abs(x2 + v2)
+    max_val = max(r1, r2)
+    # find lcm of r1, r2
+    lcm = core.compute_lcm(r1, r2)
+    print("lcm: ", lcm)
+    if lcm > 0:
+        return "YES"
+    return "NO"
+
+
+def number_line_jump(x1, v1, x2, v2):
+    # check the x and v and compare the rate
+    # 0 3 4 2 => YES
+    print(
+        "inputs: ",
+        x1, v1, x2, v2
+    )
+    former = 0
+    later = 0
+    former_rate = 0
+    later_rate = 0
+    if x1 > x2:
+        # v2 has to be larger
+        if v1 > v2:
+            return "NO"
+        former = x2
+        later = x1
+        former_rate = v2
+        later_rate = v1
+    if x2 > x1:
+        # v1 has to be larger
+        if v2 > v1:
+            return "NO"
+        former = x1
+        later = x2
+        former_rate = v1
+        later_rate = v2
+    steps = 0
+    while later <= sys.maxsize:
+        later += later_rate
+        former += former_rate
+        steps += 1
+        print(
+            "later, former, steps",
+            later, former, steps
+        )
+        if later == former:
             return "YES"
     return "NO"
 
@@ -179,5 +227,7 @@ array = [[11, 2, 4], [4, 5, 6], [10, 8, - 12]]
 # birthday_cake_candles([4, 4, 1, 3])
 # time_conversion('12:45:54PM')
 # print(grading_students([73, 67, 38, 33]))
-print(find_common_factor(0, 3, 4, 2))
-print(find_common_factor(0, 2, 5, 3))
+print(number_line_jump(0, 3, 4, 2))
+print(number_line_jump(0, 2, 5, 3))
+print(number_line_jump(2, 1, 1, 2))
+print(number_line_jump(4523, 8092, 9419, 8076))
