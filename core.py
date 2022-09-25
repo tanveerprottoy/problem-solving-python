@@ -14,4 +14,10 @@ def compute_lcm(x, y):
     return lcm
 
 
+def multiples(value, start, stop):
+    m = []
+    for i in range(start, stop):
+        m.append(value * i)
+    return m
+
 # print(compute_lcm(3, 2))

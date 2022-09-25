@@ -178,12 +178,14 @@ def number_line_jump1(x1, v1, x2, v2):
 
 
 def number_line_jump(x1, v1, x2, v2):
+    # x1, x2 <= 10000
     # check the x and v and compare the rate
     # 0 3 4 2 => YES
     print(
         "inputs: ",
         x1, v1, x2, v2
     )
+    max_val = 10000
     former = 0
     later = 0
     former_rate = 0
@@ -204,17 +206,32 @@ def number_line_jump(x1, v1, x2, v2):
         later = x2
         former_rate = v1
         later_rate = v2
-    steps = 0
-    while later <= sys.maxsize:
-        later += later_rate
-        former += former_rate
-        steps += 1
-        print(
-            "later, former, steps",
-            later, former, steps
-        )
-        if later == former:
-            return "YES"
+    half = max_val // 2
+    multiples = core.multiples(later_rate, 1, half)
+    for i in range(0, len(multiples)):
+        multiple = multiples[i]
+        if multiple % former_rate == 0:
+            later_steps = abs((multiple - later) // later_rate)
+            former_steps = abs((multiple - former) // former_rate)
+            print(
+                "later, former, multiple, later_steps, former_steps",
+                later, former, multiple, later_steps, former_steps
+            )
+            if former_steps == later_steps:
+                return "YES"
+    # other half
+    multiples = core.multiples(later_rate, half, max_val)
+    for i in range(0, len(multiples)):
+        multiple = multiples[i]
+        if multiple % former_rate == 0:
+            later_steps = abs(multiple // later_rate)
+            former_steps = abs(multiple // former_rate)
+            print(
+                "later, former, multiple, later_steps, former_steps",
+                later, former, multiple, later_steps, former_steps
+            )
+            if former_steps == later_steps:
+                return "YES"
     return "NO"
 
 
@@ -231,3 +248,4 @@ print(number_line_jump(0, 3, 4, 2))
 print(number_line_jump(0, 2, 5, 3))
 print(number_line_jump(2, 1, 1, 2))
 print(number_line_jump(4523, 8092, 9419, 8076))
+print(number_line_jump(43, 2, 70, 2))  # NO
