@@ -155,28 +155,10 @@ def grading_students(grades):
     return rounded_grades
 
 
-def number_line_jump1(x1, v1, x2, v2):
-    # check the x and v and compare the rate
-    # 0 3 4 2 => YES
-    if x1 > x2:
-        # v2 has to be larger
-        if v1 > v2:
-            return "NO"
-    if x2 > x1:
-        # v1 has to be larger
-        if v2 > v1:
-            return "NO"
-    r1 = abs(x1 + v1)
-    r2 = abs(x2 + v2)
-    max_val = max(r1, r2)
-    # find lcm of r1, r2
-    lcm = core.compute_lcm(r1, r2)
-    print("lcm: ", lcm)
-    if lcm > 0:
-        return "YES"
-    return "NO"
-
-
+# You are choreographing a circus show with various animals. For one act, you are given two kangaroos on a number line ready to jump in the positive direction (i.e, toward positive infinity).
+# The first kangaroo starts at location  and moves at a rate of  meters per jump.
+# The second kangaroo starts at location  and moves at a rate of  meters per jump.
+# You have to figure out a way to get both kangaroos at the same location at the same time as part of the show. If it is possible, return YES, otherwise
 def number_line_jump(x1, v1, x2, v2):
     # x1, x2 <= 10000
     # check the x and v and compare the rate
@@ -185,14 +167,14 @@ def number_line_jump(x1, v1, x2, v2):
         "inputs: ",
         x1, v1, x2, v2
     )
-    max_val = 10000
+    max_val = 1000000
     former = 0
     later = 0
     former_rate = 0
     later_rate = 0
     if x1 > x2:
         # v2 has to be larger
-        if v1 > v2:
+        if v1 >= v2:
             return "NO"
         former = x2
         later = x1
@@ -200,37 +182,64 @@ def number_line_jump(x1, v1, x2, v2):
         later_rate = v1
     if x2 > x1:
         # v1 has to be larger
-        if v2 > v1:
+        if v2 >= v1:
             return "NO"
         former = x1
         later = x2
         former_rate = v1
         later_rate = v2
-    half = max_val // 2
-    multiples = core.multiples(later_rate, 1, half)
+    # for i in range(0, max_val):
+    #     later_steps = abs((multiple - later) // later_rate)
+    #     former_steps = abs((multiple - former) // former_rate)
+    #     if former_steps == later_steps:
+    #         print(
+    #             "later, former, multiple, later_steps, former_steps",
+    #             later, former, multiple, later_steps, former_steps
+    #         )
+    #         return "YES"
+    return "NO"
+
+
+def number_line_jump1(x1, v1, x2, v2):
+    # x1, x2 <= 10000
+    # check the x and v and compare the rate
+    # 0 3 4 2 => YES
+    print(
+        "inputs: ",
+        x1, v1, x2, v2
+    )
+    max_val = 1000000
+    former = 0
+    later = 0
+    former_rate = 0
+    later_rate = 0
+    if x1 > x2:
+        # v2 has to be larger
+        if v1 >= v2:
+            return "NO"
+        former = x2
+        later = x1
+        former_rate = v2
+        later_rate = v1
+    if x2 > x1:
+        # v1 has to be larger
+        if v2 >= v1:
+            return "NO"
+        former = x1
+        later = x2
+        former_rate = v1
+        later_rate = v2
+    multiples = core.multiples(former - former_rate, 1, max_val)
     for i in range(0, len(multiples)):
         multiple = multiples[i]
-        if multiple % former_rate == 0:
+        if multiple % later_rate == 0:
             later_steps = abs((multiple - later) // later_rate)
             former_steps = abs((multiple - former) // former_rate)
-            print(
-                "later, former, multiple, later_steps, former_steps",
-                later, former, multiple, later_steps, former_steps
-            )
             if former_steps == later_steps:
-                return "YES"
-    # other half
-    multiples = core.multiples(later_rate, half, max_val)
-    for i in range(0, len(multiples)):
-        multiple = multiples[i]
-        if multiple % former_rate == 0:
-            later_steps = abs(multiple // later_rate)
-            former_steps = abs(multiple // former_rate)
-            print(
-                "later, former, multiple, later_steps, former_steps",
-                later, former, multiple, later_steps, former_steps
-            )
-            if former_steps == later_steps:
+                print(
+                    "later, former, multiple, later_steps, former_steps",
+                    later, former, multiple, later_steps, former_steps
+                )
                 return "YES"
     return "NO"
 
@@ -244,8 +253,10 @@ array = [[11, 2, 4], [4, 5, 6], [10, 8, - 12]]
 # birthday_cake_candles([4, 4, 1, 3])
 # time_conversion('12:45:54PM')
 # print(grading_students([73, 67, 38, 33]))
-print(number_line_jump(0, 3, 4, 2))
-print(number_line_jump(0, 2, 5, 3))
-print(number_line_jump(2, 1, 1, 2))
-print(number_line_jump(4523, 8092, 9419, 8076))
-print(number_line_jump(43, 2, 70, 2))  # NO
+# print(number_line_jump(0, 3, 4, 2))
+# print(number_line_jump(0, 2, 5, 3))
+# print(number_line_jump(2, 1, 1, 2))
+# print(number_line_jump(4523, 8092, 9419, 8076))
+# print(number_line_jump(43, 2, 70, 2))  # NO
+print(number_line_jump(21, 6, 47, 3))  # NO
+# print(number_line_jump(1571, 4240, 9023, 4234))  # YES
