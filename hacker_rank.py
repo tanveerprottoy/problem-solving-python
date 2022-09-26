@@ -159,15 +159,57 @@ def grading_students(grades):
 # The first kangaroo starts at location  and moves at a rate of  meters per jump.
 # The second kangaroo starts at location  and moves at a rate of  meters per jump.
 # You have to figure out a way to get both kangaroos at the same location at the same time as part of the show. If it is possible, return YES, otherwise
+def number_line_jump_brute(x1, v1, x2, v2):
+    # x1, x2 <= 10000
+    # check the x and v and compare the rate
+    # 0 3 4 2 => YES
+    print(
+        "inputs: ",
+        x1, v1, x2, v2
+    )
+    max_val = 99999
+    former = 0
+    later = 0
+    former_rate = 0
+    later_rate = 0
+    if x1 > x2:
+        # v2 has to be larger
+        if v1 >= v2:
+            return "NO"
+        former = x2
+        later = x1
+        former_rate = v2
+        later_rate = v1
+    if x2 > x1:
+        # v1 has to be larger
+        if v2 >= v1:
+            return "NO"
+        former = x1
+        later = x2
+        former_rate = v1
+        later_rate = v2
+    if later + later_rate > 10000:
+        max_val = 99999999999
+    later_steps = 0
+    while later <= max_val:
+        later += later_rate
+        later_steps += 1
+        target_position = abs(later - former)
+        if target_position % former_rate == 0:
+            former_steps = target_position // former_rate
+            print(
+                "former_steps",
+                former_steps
+            )
+            if former_steps == later_steps:
+                return "YES"
+    return "NO"
+
+
 def number_line_jump(x1, v1, x2, v2):
     # x1, x2 <= 10000
     # check the x and v and compare the rate
     # 0 3 4 2 => YES
-    print(
-        "inputs: ",
-        x1, v1, x2, v2
-    )
-    max_val = 1000000
     former = 0
     later = 0
     former_rate = 0
@@ -188,59 +230,8 @@ def number_line_jump(x1, v1, x2, v2):
         later = x2
         former_rate = v1
         later_rate = v2
-    # for i in range(0, max_val):
-    #     later_steps = abs((multiple - later) // later_rate)
-    #     former_steps = abs((multiple - former) // former_rate)
-    #     if former_steps == later_steps:
-    #         print(
-    #             "later, former, multiple, later_steps, former_steps",
-    #             later, former, multiple, later_steps, former_steps
-    #         )
-    #         return "YES"
-    return "NO"
-
-
-def number_line_jump1(x1, v1, x2, v2):
-    # x1, x2 <= 10000
-    # check the x and v and compare the rate
-    # 0 3 4 2 => YES
-    print(
-        "inputs: ",
-        x1, v1, x2, v2
-    )
-    max_val = 1000000
-    former = 0
-    later = 0
-    former_rate = 0
-    later_rate = 0
-    if x1 > x2:
-        # v2 has to be larger
-        if v1 >= v2:
-            return "NO"
-        former = x2
-        later = x1
-        former_rate = v2
-        later_rate = v1
-    if x2 > x1:
-        # v1 has to be larger
-        if v2 >= v1:
-            return "NO"
-        former = x1
-        later = x2
-        former_rate = v1
-        later_rate = v2
-    multiples = core.multiples(former - former_rate, 1, max_val)
-    for i in range(0, len(multiples)):
-        multiple = multiples[i]
-        if multiple % later_rate == 0:
-            later_steps = abs((multiple - later) // later_rate)
-            former_steps = abs((multiple - former) // former_rate)
-            if former_steps == later_steps:
-                print(
-                    "later, former, multiple, later_steps, former_steps",
-                    later, former, multiple, later_steps, former_steps
-                )
-                return "YES"
+    if (later - former) % (later_rate - former_rate) == 0:
+        return "YES"
     return "NO"
 
 
@@ -256,7 +247,10 @@ array = [[11, 2, 4], [4, 5, 6], [10, 8, - 12]]
 # print(number_line_jump(0, 3, 4, 2))
 # print(number_line_jump(0, 2, 5, 3))
 # print(number_line_jump(2, 1, 1, 2))
-# print(number_line_jump(4523, 8092, 9419, 8076))
 # print(number_line_jump(43, 2, 70, 2))  # NO
-print(number_line_jump(21, 6, 47, 3))  # NO
+# print(number_line_jump(21, 6, 47, 3))  # NO
 # print(number_line_jump(1571, 4240, 9023, 4234))  # YES
+# print(number_line_jump(14, 4, 98, 2))  # YES
+# print(number_line_jump(4523, 8092, 9419, 8076))  # YES
+# print(number_line_jump(1928, 4306, 5763, 4301))  # YES
+print(number_line_jump(2081, 8403, 9107, 8400))  # YES
