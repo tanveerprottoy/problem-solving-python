@@ -235,6 +235,32 @@ def number_line_jump(x1, v1, x2, v2):
     return "NO"
 
 
+# The function accepts following parameters:
+#  1. INTEGER s = perimeter start
+#  2. INTEGER t = perimeter end
+#  3. INTEGER a = src/tree 1
+#  4. INTEGER b = src/tree 2
+#  5. INTEGER_ARRAY apples
+#  6. INTEGER_ARRAY oranges
+def count_apples_and_oranges(s, t, a, b, apples, oranges):
+    count_apple = 0
+    count_orange = 0
+    max_length = max(len(apples), len(oranges))
+    for i in range(max_length):
+        if i < len(apples):
+            obj0 = apples[i]
+            if obj0 > 0:
+                distance0 = obj0 + a
+                if distance0 >= s and distance0 <= t:
+                    count_apple += 1
+        if i < len(oranges):
+            obj1 = oranges[i]
+            if obj1 < 0:
+                distance1 = obj1 + b
+                if distance1 <= t and distance1 >= s:
+                    count_orange += 1
+    print(str(count_apple) + "\n" + str(count_orange))
+
 array = [[11, 2, 4], [4, 5, 6], [10, 8, - 12]]
 # diagonals(array)
 # absolute_diagonal_difference(array)
@@ -253,4 +279,7 @@ array = [[11, 2, 4], [4, 5, 6], [10, 8, - 12]]
 # print(number_line_jump(14, 4, 98, 2))  # YES
 # print(number_line_jump(4523, 8092, 9419, 8076))  # YES
 # print(number_line_jump(1928, 4306, 5763, 4301))  # YES
-print(number_line_jump(2081, 8403, 9107, 8400))  # YES
+# print(number_line_jump(2081, 8403, 9107, 8400))  # YES
+
+count_apples_and_oranges(7, 10, 4, 12, [2, 3, -4], [3, -2, -4])
+count_apples_and_oranges(7, 11, 5, 15, [-2, 2, 1], [5, -6])
