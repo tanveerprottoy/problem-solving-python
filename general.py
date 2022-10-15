@@ -56,18 +56,49 @@ def find_median(nums: List[int]):
     return median
 
 
-def is_palindrome(num_arr) -> bool:
+def is_palindrome_arr(arr) -> bool:
     start = 0
-    end = len(num_arr) - 1
-    while start < len(num_arr) and end >= 0:
-        if num_arr[start] != num_arr[end]:
+    length = len(arr)
+    end = length - 1
+    while start < end and end >= 0:
+        if arr[start] != arr[end]:
             return False
+        start += 1
+        end -= 1
     return True
 
 
-extract_digits_mathematical(10)
-digit_list = list()
-extract_digits(10, digit_list)
-print(digit_list)
-print(factorial(8))
-print(find_median([1, 2, 3, 4]))
+def is_palindrome_str(string) -> bool:
+    start = 0
+    length = len(string)
+    end = length - 1
+    while start < end and end >= 0:
+        if string[start] != string[end]:
+            return False
+        start += 1
+        end -= 1
+    return True
+
+
+def is_palindrome_split(s) -> bool:
+    start = 0
+    full_length = len(s)
+    half_length = len(s) // 2
+    end = full_length - 1
+    while start < half_length:
+        if s[start] != s[end]:
+            return False
+        start += 1
+        end -= 1
+    return True
+
+
+# extract_digits_mathematical(10)
+# digit_list = list()
+# extract_digits(10, digit_list)
+# print(digit_list)
+# print(factorial(8))
+# print(find_median([1, 2, 3, 4]))
+print(is_palindrome_arr(["n", "o", "o", "n"]))
+print(is_palindrome_split("civic"))
+print(is_palindrome_split("abbc"))
