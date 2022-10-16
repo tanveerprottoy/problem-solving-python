@@ -276,6 +276,48 @@ def median_sorted_arrays(nums1: List[int], nums2: List[int]) -> float:
     return median
 
 
+# Given a string s, return the longest palindromic substring in s.
+# A string is called a palindrome string
+# if the reverse of that string is the same as the original string.
+def longest_palindrome(s: str) -> str:
+    if len(s) == 0:
+        return ""
+    output = ""
+    temp = ""
+    start = 0
+    full_length = len(s)
+    end = full_length - 1
+    while start < full_length:
+        if s[start] == s[end]:
+            temp = temp + s[start]
+        else:
+            if len(temp) > len(output):
+                output = temp
+        start += 1
+        end -= 1
+    if len(temp) > len(output):
+        output = temp
+    if len(output) == 0:
+        return s[0]
+    return output
+
+
+def longest_palindrome_stack(s):
+    if len(s) == 0:
+        return ""
+    stack = []
+    output = ""
+    start = 0
+    full_length = len(s)
+    while start < full_length:
+        val = s[start]
+        if len(stack) > 0:
+            output = output + stack.pop()
+            if not output:
+                stack.append(val)
+    return output
+
+
 # print(two_sum([2, 7, 11, 15], 9))
 # print(
 
@@ -301,3 +343,10 @@ def median_sorted_arrays(nums1: List[int], nums2: List[int]) -> float:
 print(length_of_longest_substring_map_str("pwwkew"))
 print(length_of_longest_substring_map_str(" "))
 # print(median_sorted_arrays([1, 3], [2]))
+
+# print(longest_palindrome("babad"))
+# print(longest_palindrome("cbbd"))
+# print(longest_palindrome("ababa"))
+# print(longest_palindrome("ab"))
+# print(longest_palindrome("abba"))
+print(longest_palindrome_stack("abb"))
