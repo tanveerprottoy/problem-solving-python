@@ -20,4 +20,12 @@ def multiples(value, start, stop):
         m.append(value * i)
     return m
 
+
+def factors(value, start, stop):
+    m = []
+    for i in range(start, stop):
+        if i % value == 0:
+            m.append(i)
+    return m
+
 # print(compute_lcm(3, 2))
