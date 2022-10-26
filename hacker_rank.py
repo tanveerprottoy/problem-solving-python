@@ -261,7 +261,6 @@ def count_apples_and_oranges(s, t, a, b, apples, oranges):
                     count_orange += 1
     print(str(count_apple) + "\n" + str(count_orange))
 
-
     # There will be two arrays of integers.
     # Determine all integers that satisfy the following two conditions:
     # The elements of the first array are all factors of the integer being considered
@@ -272,18 +271,32 @@ def count_apples_and_oranges(s, t, a, b, apples, oranges):
     # The function accepts following parameters:
     #  1. INTEGER_ARRAY a
     #  2. INTEGER_ARRAY b
+
+
 def get_total_x(a, b):
     factors = set()
-    result = []
+    result = set()
+    match_count = dict()
+    b_length = len(b)
     for i in range(0, len(a)):
         val = a[i]
-        factors.update(core.factors(val, 2, 100))
-    for i in range(0, len(b)):
-        val = b[i]
-        for index, factor in enumerate(factors):
-            if val % factor == 0:
-                result.append(factor)
+        for j in range(2, 100):
+            if j > val and j % val == 0:
+                factors.add(j)
+    for index, factor in enumerate(factors):
+        for i in range(0, b_length):
+            val = b[i]
+            if factor <= val and val % factor == 0:
+                count = match_count.get(factor, None)
+                if not count:
+                    count = 1
+                else:
+                    count = count + 1
+                match_count[factor] = count
+                if count == b_length:
+                    result.add(factor)
     return result
+
 
 def get_total_x0(a, b):
     a_length = len(a)
