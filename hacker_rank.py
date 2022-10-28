@@ -295,25 +295,7 @@ def get_total_x(a, b):
                 match_count[factor] = count
                 if count == b_length:
                     result.add(factor)
-    return result
-
-
-def get_total_x0(a, b):
-    a_length = len(a)
-    merged_arr = [*a, *b]
-    temp = set()
-    result = []
-    for i in range(0, len(merged_arr)):
-        val = merged_arr[i]
-        for j in range(2, 100):
-            if i < a_length:
-                if i % val == 0:
-                    temp.add(i)
-            else:
-                if val % i == 0:
-                    if val in temp:
-                        result.append(val)
-    return result
+    return len(result)
 
 
 array = [[11, 2, 4], [4, 5, 6], [10, 8, - 12]]
@@ -339,4 +321,5 @@ array = [[11, 2, 4], [4, 5, 6], [10, 8, - 12]]
 # count_apples_and_oranges(7, 10, 4, 12, [2, 3, -4], [3, -2, -4])
 # count_apples_and_oranges(7, 11, 5, 15, [-2, 2, 1], [5, -6])
 
-print(get_total_x([2, 4], [16, 32, 96]))
+# print(get_total_x([2, 4], [16, 32, 96]))
+print(get_total_x([3, 4], [24, 48]))
