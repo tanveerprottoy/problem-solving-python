@@ -1,4 +1,5 @@
 import sys
+import types
 from typing import List
 
 import core
@@ -298,6 +299,51 @@ def get_total_x(a, b):
     return len(result)
 
 
+# Maria plays college basketball and wants to go pro.
+# Each season she maintains a
+# record of her play. She tabulates the number of times
+# she breaks her season record
+# for most points and least points in a game. Points scored in the
+# first game establish
+# her record for the season, and she begins counting from there.
+#
+# Example
+#
+# Scores are in the same order as the games played. She tabulates her results as follows:
+#
+#                                      Count
+#     Game  Score  Minimum  Maximum   Min Max
+#      0      12     12       12       0   0
+#      1      24     12       24       0   1
+#      2      10     10       24       1   1
+#      3      24     10       24       1   1
+
+
+def breaking_records(scores):
+    max_val = 0
+    min_val = 0
+    max_count = 0
+    min_count = 0
+    for i in range(0, len(scores)):
+        val = scores[i]
+        if i == 0:
+            # init
+            max_val = val
+            min_val = val
+        else:
+            if val > max_val:
+                # max
+                max_val = val
+                max_count = max_count + 1
+            elif val < min_val:
+                # min
+                min_val = val
+                min_count = min_count + 1
+    return [
+        max_count,
+        min_count
+    ]
+
 array = [[11, 2, 4], [4, 5, 6], [10, 8, - 12]]
 # diagonals(array)
 # absolute_diagonal_difference(array)
@@ -322,4 +368,9 @@ array = [[11, 2, 4], [4, 5, 6], [10, 8, - 12]]
 # count_apples_and_oranges(7, 11, 5, 15, [-2, 2, 1], [5, -6])
 
 # print(get_total_x([2, 4], [16, 32, 96]))
-print(get_total_x([3, 4], [24, 48]))
+# print(get_total_x([3, 4], [24, 48]))
+
+# print(breaking_records([12, 24, 10, 24]))
+# print(breaking_records([10, 5, 20, 20, 4, 5, 2, 25, 1]))
+# print(breaking_records([3, 4, 21, 36, 10, 28, 35, 5, 24, 42]))
+print(breaking_records([0, 9, 3, 10, 2, 20]))  # 3 0
