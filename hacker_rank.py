@@ -353,25 +353,25 @@ def breaking_records(scores):
 # The sum of the integers on the squares is equal to his birthday.
 # Determine how many ways she can divide the chocolate.
 # int s[n]: the numbers on each of the squares of chocolate
-# int d: Ron's birth day
+# int d: Ron's birthday
 # int m: Ron's birth month
 def subarray_division(s, d, m):
-    segments_sum = 0
-    segments_count = 0
-    previous = -1
+    fast = 0
+    slow = 0
     result = 0
-    for i in range(0, len(s)):
-        segments_count = segments_count + 1
-        val = s[i]
-        if val == d and m == 1:
-            result = result + 1
-        else:
-            segments_sum = segments_sum + val
-            if segments_sum == d and segments_count == m:
+    arr_length = len(s)
+    segments_sum = 0
+    while fast < arr_length and slow < arr_length:
+        val = s[fast]
+        segments_sum += val
+        if m == ((fast - slow) + 1):
+            if segments_sum == d:
                 result = result + 1
-                segments_sum = 0
-                segments_count = 0
-            previous = val
+            segments_sum = 0
+            slow += 1
+            fast = slow
+            continue
+        fast += 1
     return result
 
 
@@ -406,5 +406,7 @@ array = [[11, 2, 4], [4, 5, 6], [10, 8, - 12]]
 # print(breaking_records([3, 4, 21, 36, 10, 28, 35, 5, 24, 42]))
 # print(breaking_records([0, 9, 3, 10, 2, 20]))  # 3 0
 
-#print(subarray_division([2, 2, 1, 3, 2], 4, 2))
+print(subarray_division([2, 2, 1, 3, 2], 4, 2))
 print(subarray_division([1, 2, 1, 3, 2], 3, 2))
+print(subarray_division([1, 1, 1, 1, 1, 1], 3, 2))
+print(subarray_division([4], 4, 1))
