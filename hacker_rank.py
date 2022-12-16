@@ -358,7 +358,6 @@ def breaking_records(scores):
 def subarray_division(s, d, m):
     segments_sum = 0
     segments_count = 0
-    previous = -1
     result = 0
     for i in range(0, len(s)):
         segments_count = segments_count + 1
@@ -371,8 +370,16 @@ def subarray_division(s, d, m):
                 result = result + 1
                 segments_sum = 0
                 segments_count = 0
-            previous = val
     return result
+
+
+# The function is expected to return an INTEGER.
+# The function accepts following parameters:
+#  1. INTEGER n
+#  2. INTEGER k
+#  3. INTEGER_ARRAY ar
+def divisible_sum_pairs(n, k, ar):
+    pass
 
 
 array = [[11, 2, 4], [4, 5, 6], [10, 8, - 12]]
